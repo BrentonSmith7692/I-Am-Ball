@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BallMovement : MonoBehaviour
 {
-    //enable the speed attribute of the ball to be edited in the unity player
+    //create the classes
     public float speed;
     public float jumpHeight;
     public Text ScoreText;
@@ -16,6 +16,7 @@ public class BallMovement : MonoBehaviour
 
     private void Start()
     {
+        //when the game starts get the rigidbody and set the score to 0
         rb = GetComponent<Rigidbody>();
         Score = 0;
         SetScoreText();
@@ -46,7 +47,7 @@ public class BallMovement : MonoBehaviour
         // if the other object is tagged as a "Pick Up"
         if (other.gameObject.CompareTag("Pick Up"))
         {
-            //set the pick up as not active
+            //set the pick up as not active and add one point to the score
             other.gameObject.SetActive(false);
             Score = Score + 1;
             SetScoreText();
@@ -62,6 +63,7 @@ public class BallMovement : MonoBehaviour
 
     void SetScoreText ()
     {
+        //set the score text as the current score plus one
         ScoreText.text = "Score: " + Score.ToString();
     }
 }
