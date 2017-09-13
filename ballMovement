@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallMovement : MonoBehaviour
 {
     //enable the speed attribute of the ball to be edited in the unity player
     public float speed;
     public float jumpHeight;
+    public Text ScoreText;
+    private int Score;
 
     //set up the rigidbody of the ball
     private Rigidbody rb;
@@ -14,6 +17,8 @@ public class BallMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Score = 0;
+        SetScoreText();
     }
 
     private void FixedUpdate()
@@ -43,6 +48,8 @@ public class BallMovement : MonoBehaviour
         {
             //set the pick up as not active
             other.gameObject.SetActive(false);
+            Score = Score + 1;
+            SetScoreText();
         }
 
         //if the other gameobject is tagged as a hazard
@@ -51,5 +58,10 @@ public class BallMovement : MonoBehaviour
             //set the ball as not active
             this.gameObject.SetActive(false);
         }
+    }
+
+    void SetScoreText ()
+    {
+        ScoreText.text = "Score: " + Score.ToString();
     }
 }
