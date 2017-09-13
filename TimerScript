@@ -1,0 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TimerScript : MonoBehaviour
+{
+    public float Timer=100;
+    public Text timeText;
+
+	// Use this for initialization
+	void Start ()
+    {
+        timeText = GetComponent<Text>();
+	}
+	
+	// Update is called once per frame
+	void Update ()
+    {
+        Timer -= Time.deltaTime;
+        timeText.text = Timer.ToString("f0");
+        print(Timer);
+	}
+}
