@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BallMovement : MonoBehaviour
+{
+    //enable the speed attribute of the ball to be edited in the unity player
+    public float speed;
+    public float jumpHeight;
+
+    //set up the rigidbody of the ball
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        rb.AddForce(movement * speed);
+
+
+    }
+
+    void Update()
+    {
+        // when the player press the spacebar
+        if (Input.GetKeyDown(KeyCode.Space))
+            this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 300.0f);
+    }
+
+    // when the ball collides with another object
+    private void OnTriggerEnter(Collider other)
+    {
+        // if the other object is tagged as a "Pick Up"
+        if (other.gameObject.CompareTag("Pick Up"))
+        {
+            //set the pick up as not active
+            other.gameObject.SetActive(false);
+        }
+
+        //if the other gameobject is tagged as a hazard
+        if (other.gameObject.CompareTag("Hazard"))
+        {
+            //set the ball as not active
+            this.gameObject.SetActive(false);
+        }
+    }
+}
